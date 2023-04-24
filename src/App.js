@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
 function App() {
+
+  const [tang, setTang] = useState(1)
+  const tanggiatri = () => {
+    setTang(braveState => braveState + 1)
+  }
+  const [giam, setGiam] = useState(10)
+  const giamgiatri = () => {
+    setGiam(ggState => ggState - 1)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{ padding: 20, }}>
+      <h1>{tang}</h1>
+      <button onClick={tanggiatri}> Tăng + </button>
+      <h1>{giam}</h1>
+      <button onClick={giamgiatri}> Giảm - </button>
     </div>
   );
 }

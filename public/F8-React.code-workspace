@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../../F8-React"
+		},
+		{
+			"path": "../../../../react-webpack"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
