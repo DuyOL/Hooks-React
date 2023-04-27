@@ -54,48 +54,87 @@ import { useState } from "react";
 //     </div>
 //   );
 // }
-const courses = [
-  {
-    id: 1,
-    name: 'HTML, CSS'
-  },
-  {
-    id: 2,
-    name: 'JavaScript'
-  },
-  {
-    id: 3,
-    name: 'React JS'
-  }
-]
+// Two-Way binding trong React : Ràng Buộc 2 Chiều
+// const courses = [
+//   {
+//     id: 1,
+//     name: 'HTML, CSS'
+//   },
+//   {
+//     id: 2,
+//     name: 'JavaScript'
+//   },
+//   {
+//     id: 3,
+//     name: 'React JS'
+//   }
+// ]
+// function App() {
+//   const [checker, setChecker] = useState([])
+//   const handleCheck = (id) => {
+//     setChecker(prev => {
+//       const isChecker = checker.includes(id)
+//       if (isChecker) {
+//         return checker.filter(item => item !== id)
+//       }
+//       else {
+//         return [...prev, id]
+//       }
+//     })
+//   }
+//   const hendleSubmit = () => {
+//     console.log({ ids: checker })
+//   }
+//   return (
+//     <div style={{ padding: 32 }}>
+//       {courses.map(course => (
+//         <div key={course.id}>
+//           <input type="checkbox"
+//             checked={checker.includes(course.id)}
+//             onChange={() => handleCheck(course.id)}
+//           />
+//           {course.name}
+//         </div>
+//       ))}
+//       <button onClick={hendleSubmit}> Đăng Kí</button>
+//     </div>
+//   )
+// }
+// Todolist with useState khi reset lại trang web sẽ loading lại trang nhưng dữ liệ dữ nguyên và lưu lại
 function App() {
-  const [checker, setChecker] = useState([])
-  const handleCheck = (id) => {
-    setChecker(prev => {
-      const isChecker = checker.includes(id)
-      if (isChecker) {
-        return checker.filter(item => item !== id)
-      }
-      else {
-        return [...prev, id]
-      }
-    })
-  }
+
+  const [job, setJob] = useState('')
+  const [jobs, setJobs] = useState(() => {
+    const storsgeJobs = JSON.parse(localStorage.getItem('jobs'))
+    console.log(storsgeJobs)
+    return storsgeJobs
+  })
   const hendleSubmit = () => {
-    console.log({ ids: checker })
+    setJobs(prev => {
+      const newJobs = [...prev, job]
+
+      const jsonJobs = JSON.stringify(newJobs)
+
+      localStorage.setItem('jobs', jsonJobs)
+
+      console.log(jsonJobs)
+      return newJobs
+    })
+    setJob('')
+
   }
   return (
     <div style={{ padding: 32 }}>
-      {courses.map(course => (
-        <div key={course.id}>
-          <input type="checkbox"
-            checked={checker.includes(course.id)}
-            onChange={() => handleCheck(course.id)}
-          />
-          {course.name}
-        </div>
-      ))}
-      <button onClick={hendleSubmit}> Đăng Kí</button>
+      <input
+        value={job}
+        onChange={e => setJob(e.target.value)}
+      />
+      <button onClick={hendleSubmit}>Add</button>
+      <ul>
+        {jobs.map((job, index) => (
+          <li key={index}>{job}</li>
+        ))}
+      </ul>
     </div>
   )
 }
