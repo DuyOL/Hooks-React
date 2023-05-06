@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Content from './Content'
 // useState tăng giá trị lên +1 và giảm trá trị đi trừ -1
 // function App() {
 //   const [introduce, setIntroduce] = useState({
@@ -101,41 +102,44 @@ import { useState } from "react";
 //   )
 // }
 // Todolist with useState khi reset lại trang web sẽ loading lại trang nhưng dữ liệ dữ nguyên và lưu lại
+// function App() {
+//     const [job, setJob] = useState('');
+//     const [jobs, setJobs] = useState(() => {
+//         const storageJobs = JSON.parse(localStorage.getItem('jobs'));
+//         console.log(storageJobs);
+//         return storageJobs || [];
+//     });
+//     const handleSubmit = () => {
+//         setJobs(prevJobs => {
+//             const newJobs = [...prevJobs, job];
+//             const jsonJobs = JSON.stringify(newJobs);
+//             localStorage.setItem('jobs', jsonJobs);
+//             console.log(jsonJobs);
+//             return newJobs;
+//         });
+//         setJob('');
+//     };
+
+//     return (
+//         <div style={{ padding: 32 }}>
+//             <input value={job} onChange={e => setJob(e.target.value)} />
+//             <button onClick={handleSubmit}>Add</button>
+//             <ul>
+//                 {jobs.map((job, index) => (
+//                     <li key={index}>{job}</li>
+//                 ))}
+//             </ul>
+//         </div>
+//     );
+// }
+// export default App;
 function App() {
-
-  const [job, setJob] = useState('')
-  const [jobs, setJobs] = useState(() => {
-    const storsgeJobs = JSON.parse(localStorage.getItem('jobs'))
-    console.log(storsgeJobs)
-    return storsgeJobs
-  })
-  const hendleSubmit = () => {
-    setJobs(prev => {
-      const newJobs = [...prev, job]
-
-      const jsonJobs = JSON.stringify(newJobs)
-
-      localStorage.setItem('jobs', jsonJobs)
-
-      console.log(jsonJobs)
-      return newJobs
-    })
-    setJob('')
-
-  }
-  return (
-    <div style={{ padding: 32 }}>
-      <input
-        value={job}
-        onChange={e => setJob(e.target.value)}
-      />
-      <button onClick={hendleSubmit}>Add</button>
-      <ul>
-        {jobs.map((job, index) => (
-          <li key={index}>{job}</li>
-        ))}
-      </ul>
-    </div>
-  )
+    const [show, setShow] = useState(false)
+    return (
+        <div style={{ padding: 20 }}>
+            <button onClick={() => setShow(!show)}>Show</button>
+            {show && <Content />}
+        </div>
+    )
 }
 export default App;
