@@ -137,7 +137,7 @@ function App() {
     const [show, setShow] = useState(false)
     return (
         <div style={{ padding: 20 }}>
-            <button onClick={() => setShow(!show)}>Công tắc</button>
+            <button onClick={() => setShow(!show)}>Nút Bấm</button>
             {show && <Content />}
         </div>
     )
