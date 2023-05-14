@@ -1,6 +1,7 @@
 // import userEvent from "@testing-library/user-event";
 // import { useEffect, useState } from "react";
-import { useLayoutEffect, useState } from "react";
+// import { useLayoutEffect, useState } from "react";
+import { memo } from "react";
 // 1.useEffect(CallBack)
 // - Gọi CallBack mỗi khi Component re-render
 // - Gọi CallBack sau khi Component thêm Element vào DOM
@@ -184,22 +185,29 @@ import { useLayoutEffect, useState } from "react";
 // 4. Gọi useLayoutEffect callback (sync)
 // 5. Render lại UI
 // Đây là ứng dụng chạy từ 0 đến 3 và trở về 0 làm bằng useLayoutEffect
-function Content() {
-    const [count, setCount] = useState(0)
-    useLayoutEffect(() => {
-        if (count > 3)
-            setCount(0)
-    }, [count])
+// function Content() {
+//     const [count, setCount] = useState(0)
+//     useLayoutEffect(() => {
+//         if (count > 3)
+//             setCount(0)
+//     }, [count])
 
-    const handleRun = () => {
-        setCount(count + 1)
-    }
+//     const handleRun = () => {
+//         setCount(count + 1)
+//     }
 
+//     return (
+//         <div>
+//             <h1>{count}</h1>
+//             <button onClick={handleRun}> Run </button>
+//         </div>
+//     )
+// }
+function Content({ count }) {
+
+    console.log('re - render')
     return (
-        <div>
-            <h1>{count}</h1>
-            <button onClick={handleRun}> Run </button>
-        </div>
+        <h2>Chào những người ae thiện lành {count}</h2>
     )
 }
-export default Content;
+export default memo(Content);

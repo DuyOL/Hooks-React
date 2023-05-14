@@ -135,32 +135,53 @@ import Content from './Content'
 // }
 // export default App;
 // Phần mềm chạy lùi từ 60 đến âm vô cùng khi nhấn stop sẽ dừng lại
+// useRef() Lưu các giá trị qua một tham chiếu bên ngoài Function component 
+// function App() {
+//     const [count, setcount] = useState(60)
+
+//     const timeID = useRef()
+//     const prevCount = useRef()
+
+//     useEffect(() => {
+//         prevCount.current = count
+//     }, [count])
+
+//     const handleStart = () => {
+//         timeID.current = setInterval(() => {
+//             setcount(prevCount => prevCount - 1)
+//         }, 1000)
+//         console.log('Start --> ', timeID.current)
+//     }
+//     const handleStop = () => {
+//         clearInterval(timeID.current)
+//         console.log('Stop --> ', timeID.current)
+//     }
+//     console.log(count, prevCount.current)
+//     return (
+//         <div style={{ padding: 20 }}>
+//             <h1>{count}</h1>
+//             <button onClick={handleStart}>Start</button>
+//             <button onClick={handleStop}>Stop</button>
+//         </div>
+//     )
+// }
+// 1 Memo() --> Higher Order Component (HOC) (Memo = Ghi nhớ)
 function App() {
-    const [cound, setCound] = useState(60)
-
-    const timeID = useRef()
-    const prevCound = useRef()
-
-    useEffect(() => {
-        prevCound.current = cound
-    }, [cound])
-
-    const handleStart = () => {
-        timeID.current = setInterval(() => {
-            setCound(prevCound => prevCound - 1)
-        }, 1000)
-        console.log('Start --> ', timeID.current)
+    const [count, setCount] = useState(0)
+    const [count2, setCount2] = useState(0)
+    const increase = () => {
+        setCount(count + 1)
     }
-    const handleStop = () => {
-        clearInterval(timeID.current)
-        console.log('Stop --> ', timeID.current)
+    const increase2 = () => {
+        setCount2(count2 + 1)
     }
-    console.log(cound, prevCound.current)
     return (
-        <div style={{ padding: 20 }}>
-            <h1>{cound}</h1>
-            <button onClick={handleStart}>Start</button>
-            <button onClick={handleStop}>Stop</button>
+        <div style={{ padding: '10px 32px' }}>
+            <Content count={count} />
+            <h1>{count}</h1>
+            <h1>{count2}</h1>
+            <button onClick={increase}>Click Me</button>
+            <button onClick={increase2}>Click Me 2</button>
         </div>
     )
 }
