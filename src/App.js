@@ -1,4 +1,5 @@
-import { useState } from "react";
+// import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Content from './Content'
 // useState tăng giá trị lên +1 và giảm trá trị đi trừ -1
 // function App() {
@@ -133,12 +134,33 @@ import Content from './Content'
 //     );
 // }
 // export default App;
+// Phần mềm chạy lùi từ 60 đến âm vô cùng khi nhấn stop sẽ dừng lại
 function App() {
-    const [show, setShow] = useState(false)
+    const [cound, setCound] = useState(60)
+
+    const timeID = useRef()
+    const prevCound = useRef()
+
+    useEffect(() => {
+        prevCound.current = cound
+    }, [cound])
+
+    const handleStart = () => {
+        timeID.current = setInterval(() => {
+            setCound(prevCound => prevCound - 1)
+        }, 1000)
+        console.log('Start --> ', timeID.current)
+    }
+    const handleStop = () => {
+        clearInterval(timeID.current)
+        console.log('Stop --> ', timeID.current)
+    }
+    console.log(cound, prevCound.current)
     return (
         <div style={{ padding: 20 }}>
-            <button onClick={() => setShow(!show)}>Nút Bấm</button>
-            {show && <Content />}
+            <h1>{cound}</h1>
+            <button onClick={handleStart}>Start</button>
+            <button onClick={handleStop}>Stop</button>
         </div>
     )
 }

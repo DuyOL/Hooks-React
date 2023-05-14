@@ -183,6 +183,7 @@ import { useLayoutEffect, useState } from "react";
 // 3. Gọi cleanup nếu deps thay đổi (sync)
 // 4. Gọi useLayoutEffect callback (sync)
 // 5. Render lại UI
+// Đây là ứng dụng chạy từ 0 đến 3 và trở về 0 làm bằng useLayoutEffect
 function Content() {
     const [count, setCount] = useState(0)
     useLayoutEffect(() => {
