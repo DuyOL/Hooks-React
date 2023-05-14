@@ -1,5 +1,6 @@
-import userEvent from "@testing-library/user-event";
-import { useEffect, useState } from "react";
+// import userEvent from "@testing-library/user-event";
+// import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 // 1.useEffect(CallBack)
 // - Gọi CallBack mỗi khi Component re-render
 // - Gọi CallBack sau khi Component thêm Element vào DOM
@@ -95,29 +96,108 @@ import { useEffect, useState } from "react";
 //         </div>
 //     )
 // }
+// Cleanup function luôn được gọi trước khi CallBack được gọi (trừ lần mounted)
+// Đây là VD khi thêm ảnh mới vào thì ảnh cũ được xóa để tránh dư thừa dữ liệu (useEffect with preview avatar)
+// function Content() {
+//     const [avatar, setAvatar] = useState()
+//     useEffect(() => {
+//         return () => {
+//             avatar && URL.revokeObjectURL(avatar.preview)
+//         }
+//     }, [avatar])
+//     const handlePreviewAvatar = (e) => {
+//         const file = e.target.files[0]
+
+//         file.preview = URL.createObjectURL(file)
+
+//         setAvatar(file)
+//     }
+//     return (
+//         <div>
+//             <input
+//                 type="file"
+//                 onChange={handlePreviewAvatar}
+//             />
+//             {avatar && (
+//                 <img src={avatar.preview} alt="" width="20%" />
+//             )}
+//         </div>
+//     )
+// }
+//  Đây là VD useEffect with fake Chat App
+// const lessons = [
+//     {
+//         id: 1,
+//         name: 'Tôi tên là Duy . Tôi Quê ở Hải Dương ',
+
+//     },
+//     {
+//         id: 2,
+//         name: 'Tôi sinh ngày 22-12-2002 . Đang là Sinh Năm 2 trường HPC ',
+//     },
+//     {
+//         id: 3,
+//         name: 'Tôi sống lành mạnh , không hút thuốc , và đặc biệt là nhát gái '
+//     }
+// ]
+// function Content() {
+//     const [lessonId, setLessonId] = useState(1);
+//     useEffect(() => {
+//         const handleComment = ({ detail }) => {
+//             console.log(detail);
+//         };
+//         window.addEventListener(`lesson-${lessonId}`, handleComment);
+//         return () => {
+//             window.removeEventListener(`lesson-${lessonId}`, handleComment);
+//         };
+//     }, [lessonId]);
+//     return (
+//         <div>
+//             <ul>
+//                 {lessons.map((lesson) => (
+//                     <li
+//                         key={lesson.id}
+//                         style={{
+//                             color:
+//                                 lessonId === lesson.id ? "red" : "#333",
+//                         }}
+//                         onClick={() => setLessonId(lesson.id)}
+//                     >
+//                         {lesson.name}
+//                     </li>
+//                 ))}
+//             </ul>
+//         </div>
+//     );
+// }
+// Sự khác nhau giữa useEffect vs useLayoutEffect
+// useEffect
+// 1. Cập nhập đến State
+// 2. Cập nhập DOM (mutated)
+// 3. Render lại UI
+// 4. Gọi cleanup nếu deps thay đổi
+// 5. Gọi useEffect callback
+// useLayoutEffect
+// 1. Cập nhập lại State
+// 2. Cập nhập DOM (mutated)
+// 3. Gọi cleanup nếu deps thay đổi (sync)
+// 4. Gọi useLayoutEffect callback (sync)
+// 5. Render lại UI
 function Content() {
-    const [avatar, setAvatar] = useState()
-    useEffect(() => {
-        return () => {
-            avatar && URL.revokeObjectURL(avatar.preview)
-        }
-    }, [avatar])
-    const handlePreviewAvatar = (e) => {
-        const file = e.target.files[0]
+    const [count, setCount] = useState(0)
+    useLayoutEffect(() => {
+        if (count > 3)
+            setCount(0)
+    }, [count])
 
-        file.preview = URL.createObjectURL(file)
-
-        setAvatar(file)
+    const handleRun = () => {
+        setCount(count + 1)
     }
+
     return (
         <div>
-            <input
-                type="file"
-                onChange={handlePreviewAvatar}
-            />
-            {avatar && (
-                <img src={avatar.preview} alt="" width="20%" />
-            )}
+            <h1>{count}</h1>
+            <button onClick={handleRun}> Run </button>
         </div>
     )
 }
