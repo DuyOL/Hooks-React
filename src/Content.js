@@ -203,11 +203,14 @@ import { memo } from "react";
 //         </div>
 //     )
 // }
-function Content({ count }) {
+function Content({ onIncrease }) {
 
-    console.log('re - render')
+    console.log('re - render');
     return (
-        <h2>Chào những người ae thiện lành {count}</h2>
+        <>
+            <h2>Chào những người ae thiện lành</h2>
+            <button onClick={onIncrease}>Click Me</button>
+        </>
     )
 }
 export default memo(Content);

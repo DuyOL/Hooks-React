@@ -1,6 +1,10 @@
 // import { useState } from "react";
-import { useRef, useState, useEffect } from "react";
-import Content from './Content'
+// import { useRef } from "react";
+// import { useState, useMemo } from "react";
+import { useReducer } from "react"
+// import { useState, useCallback } from "react";
+// import { memo } from 'react'
+// import Content from './Content'
 // useState tăng giá trị lên +1 và giảm trá trị đi trừ -1
 // function App() {
 //   const [introduce, setIntroduce] = useState({
@@ -166,22 +170,105 @@ import Content from './Content'
 //     )
 // }
 // 1 Memo() --> Higher Order Component (HOC) (Memo = Ghi nhớ)
+// function App() {
+//     const [count, setCount] = useState(0)
+
+//     const hendleIncrease = useCallback(() => {
+//         setCount(prevCount => prevCount + 1)
+//     }, [])
+
+//     return (
+//         <div style={{ padding: '10px 32px' }}>
+//             <Content
+//                 onIncrease={hendleIncrease}
+//             />
+//             <h1>{count}</h1>
+//         </div>
+//     )
+// }
+// Dưới đây sử dụng Memo Hook
+// function App() {
+//     const [name, setName] = useState('')
+//     const [price, setPrice] = useState('')
+//     const [products, setProducts] = useState([])
+
+//     const nameRef = useRef()
+
+//     const handleSubmit = () => {
+//         setProducts([...products, {
+//             name,
+//             price: +price
+//         }])
+//         setName('')
+//         setPrice('')
+
+//         nameRef.current.focus()
+//     }
+//     const total = useMemo(() => {
+//         const result = products.reduce((result, prod) => {
+//             console.log('Tính toán lại')
+//             return result + prod.price
+//         }, 0)
+//         return result
+//     }, [products])
+//     return (
+//         <div style={{ padding: '10px 32px' }}>
+//             <input
+//                 ref={nameRef}
+//                 value={name}
+//                 placeholder="Enter name..."
+//                 onChange={e => setName(e.target.value)}
+//             />
+//             <br />
+//             <input
+//                 value={price}
+//                 placeholder="Enter price..."
+//                 onChange={e => setPrice(e.target.value)}
+//             />
+//             <br />
+//             <button onClick={handleSubmit}> ADD </button>
+//             <br />
+//             Total:{total}
+//             <ul>
+//                 {products.map((products, index) => (
+//                     <li key={index} >{products.name} - {products.price}</li>
+//                 ))}
+//             </ul>
+//         </div>
+//     )
+
+// }
+// Dưới đây là useReduce
+const initState = 0
+const UP_ACTION = 'up'
+const DOWN_ACTION = 'down'
+
+const reducer = (state, action) => {
+    switch (action) {
+        case UP_ACTION:
+            return state + 1
+        case DOWN_ACTION:
+            return state - 1
+        default:
+            throw new Error('Invalid action')
+    }
+}
 function App() {
-    const [count, setCount] = useState(0)
-    const [count2, setCount2] = useState(0)
-    const increase = () => {
-        setCount(count + 1)
-    }
-    const increase2 = () => {
-        setCount2(count2 + 1)
-    }
+    const [count, dispatch] = useReducer(reducer, initState)
+
     return (
-        <div style={{ padding: '10px 32px' }}>
-            <Content count={count} />
+        <div style={{ padding: '0px 32px' }}>
             <h1>{count}</h1>
-            <h1>{count2}</h1>
-            <button onClick={increase}>Click Me</button>
-            <button onClick={increase2}>Click Me 2</button>
+            <button
+                onClick={() => dispatch(DOWN_ACTION)}
+            >
+                Down
+            </button>
+            <button
+                onClick={() => dispatch(UP_ACTION)}
+            >
+                Up
+            </button>
         </div>
     )
 }
