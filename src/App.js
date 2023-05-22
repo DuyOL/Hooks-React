@@ -1,7 +1,8 @@
+import TodoApp from './Todo'
 // import { useState } from "react";
 // import { useRef } from "react";
 // import { useState, useMemo } from "react";
-import { useReducer } from "react"
+// import { useReducer, useRef } from "react"
 // import { useState, useCallback } from "react";
 // import { memo } from 'react'
 // import Content from './Content'
@@ -238,38 +239,42 @@ import { useReducer } from "react"
 //     )
 
 // }
-// Dưới đây là useReduce
-const initState = 0
-const UP_ACTION = 'up'
-const DOWN_ACTION = 'down'
+// Dưới đây là useReduce VD 1
+// const initState = 0
+// const UP_ACTION = 'up'
+// const DOWN_ACTION = 'down'
 
-const reducer = (state, action) => {
-    switch (action) {
-        case UP_ACTION:
-            return state + 1
-        case DOWN_ACTION:
-            return state - 1
-        default:
-            throw new Error('Invalid action')
-    }
-}
+// const reducer = (state, action) => {
+//     switch (action) {
+//         case UP_ACTION:
+//             return state + 1
+//         case DOWN_ACTION:
+//             return state - 1
+//         default:
+//             throw new Error('Invalid action')
+//     }
+// }
+// function App() {
+//     const [count, dispatch] = useReducer(reducer, initState)
+
+//     return (
+//         <div style={{ padding: '0px 32px' }}>
+//             <h1>{count}</h1>
+//             <button
+//                 onClick={() => dispatch(DOWN_ACTION)}
+//             >
+//                 Down
+//             </button>
+//             <button
+//                 onClick={() => dispatch(UP_ACTION)}
+//             >
+//                 Up
+//             </button>
+//         </div>
+//     )
+// }
+// Dưới đây là useReduce VD 2
 function App() {
-    const [count, dispatch] = useReducer(reducer, initState)
-
-    return (
-        <div style={{ padding: '0px 32px' }}>
-            <h1>{count}</h1>
-            <button
-                onClick={() => dispatch(DOWN_ACTION)}
-            >
-                Down
-            </button>
-            <button
-                onClick={() => dispatch(UP_ACTION)}
-            >
-                Up
-            </button>
-        </div>
-    )
+    return <TodoApp />
 }
-export default App;
+export default App
