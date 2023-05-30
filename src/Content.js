@@ -1,7 +1,8 @@
 // import userEvent from "@testing-library/user-event";
 // import { useEffect, useState } from "react";
 // import { useLayoutEffect, useState } from "react";
-import { memo } from "react";
+// import { memo } from "react";
+import Paragraph from "./Paragraph"
 // 1.useEffect(CallBack)
 // - Gọi CallBack mỗi khi Component re-render
 // - Gọi CallBack sau khi Component thêm Element vào DOM
@@ -203,14 +204,22 @@ import { memo } from "react";
 //         </div>
 //     )
 // }
-function Content({ onIncrease }) {
+// function Content({ onIncrease }) {
 
-    console.log('re - render');
+//     console.log('re - render');
+//     return (
+//         <>
+//             <h2>Chào những người ae thiện lành</h2>
+//             <button onClick={onIncrease}>Click Me</button>
+//         </>
+//     )
+// }
+// export default memo(Content);
+function Content() {
     return (
-        <>
-            <h2>Chào những người ae thiện lành</h2>
-            <button onClick={onIncrease}>Click Me</button>
-        </>
+        <div>
+            <Paragraph />
+        </div>
     )
 }
-export default memo(Content);
+export default Content

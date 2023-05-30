@@ -1,5 +1,9 @@
-import TodoApp from './Todo'
-// import { useState } from "react";
+// import TodoApp from './Todo'
+import { useContext } from "react"
+import { ThemeContext } from "./ThemeContext"
+import Content from "./Content"
+import './App.css'
+
 // import { useRef } from "react";
 // import { useState, useMemo } from "react";
 // import { useReducer, useRef } from "react"
@@ -275,6 +279,13 @@ import TodoApp from './Todo'
 // }
 // Dưới đây là useReduce VD 2
 function App() {
-    return <TodoApp />
+    const context = useContext(ThemeContext)
+    return (
+        <div style={{ padding: 20 }}>
+            <button onClick={context.toggleTheme}>Toggle theme</button>
+            <Content />
+        </div>
+
+    )
 }
 export default App

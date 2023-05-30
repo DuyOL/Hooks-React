@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from './ThemeContext'
 
 // Fake comments
 function emitComment(id) {
@@ -21,7 +22,9 @@ emitComment(3)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
