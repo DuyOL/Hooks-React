@@ -1,9 +1,11 @@
 // import TodoApp from './Todo'
-import { useContext } from "react"
-import { ThemeContext } from "./ThemeContext"
-import Content from "./Content"
-import './App.css'
-
+// import { useContext } from "react"
+// import { ThemeContext } from "./ThemeContext"
+// import Content from "./Content"
+// import './App.css'
+// import { useStore, action } from "./Store"
+import { useRef } from "react"
+import Video from "./Video"
 // import { useRef } from "react";
 // import { useState, useMemo } from "react";
 // import { useReducer, useRef } from "react"
@@ -278,14 +280,61 @@ import './App.css'
 //     )
 // }
 // Dưới đây là useReduce VD 2
-function App() {
-    const context = useContext(ThemeContext)
-    return (
-        <div style={{ padding: 20 }}>
-            <button onClick={context.toggleTheme}>Toggle theme</button>
-            <Content />
-        </div>
+// function App() {
+//     const context = useContext(ThemeContext)
+//     return (
+//         <div style={{ padding: 20 }}>
+//             <button onClick={context.toggleTheme}>Toggle theme</button>
+//             <Content />
+//         </div>
 
+//     )
+// }
+// Dưới đây là context + useReducer ở phạm vi toàn cục đẩy lên cấp cao nhất
+// function App() {
+//     const [state, dispatch] = useStore()
+//     const { todos, todoInput } = state
+
+//     const handleADD = () => {
+//         dispatch(action.addTodo(todoInput))
+//     }
+
+//     console.log('todoInput', todoInput);
+//     return (
+//         <div>
+//             <input
+//                 value={todoInput}
+//                 placeholder="Enter todo..."
+//                 onChange={e => {
+//                     dispatch(action.set_todo_input(e.target.value))
+//                 }}
+//             />
+//             <button onClick={handleADD}>ADD</button>
+//             {todos.map((todo, index) => (
+//                 <li key={index}>{todo}</li>
+//             ))}
+//         </div>
+//     )
+// }
+
+// Duới đây là useImperativeHandle (Tạo ra ứng dụng phát video và tạm dừng)
+function App() {
+    const videoRef = useRef()
+
+    const handlePlay = () => {
+        videoRef.current.play()
+    }
+
+    const handlePause = () => {
+        videoRef.current.pause()
+    }
+
+    return (
+        <div>
+            <Video ref={videoRef} />
+            <button onClick={handlePlay}>Play</button>
+            <button onClick={handlePause}>Pause</button>
+        </div>
     )
 }
 export default App
